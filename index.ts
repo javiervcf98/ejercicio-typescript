@@ -159,5 +159,100 @@ for (let libro of libros) {
 //La sombra del viento//
 
 //EJERCICIO 11//
+function buscarUsuario(id: number): string | undefined {  
+  if (id === 1) {
+    return "Ana";
+  }
+    return undefined;
 
+}
+let usuario = buscarUsuario(1);
+if (usuario) {
+  console.log(usuario.toUpperCase());
+} else {
+  console.log("Usuario no encontrado");
+}
+let usuario2 = buscarUsuario(2);
+
+if (usuario2) {
+  console.log(usuario2.toUpperCase());
+} else {
+  console.log("Usuario no encontrado");
+}
+
+//ANA//
+//Usuario no encontrado//
+
+//EJERCICIO 12//
+let dato: unknown = "hola";
+if (typeof dato === "string") {
+  console.log(dato.toUpperCase());
+} else {
+  console.log("El dato no es un texto");
+}
+
+dato = 42;
+
+if (typeof dato === "string") {
+  console.log(dato.toUpperCase());
+} else {
+  console.log("El dato no es un texto");
+}
+//HOLA//
+//El dato no es un texto//
+
+//EJERCICIO 13//
+type Usuario = {
+  id: number;
+  nombre: string;
+  email: string;
+  edad: number;
+};
+let cambios: Partial<Usuario> = {
+  email: "ana.nueva@correo.com"
+};
+let resumen: Pick<Usuario, "id" | "nombre"> = {
+  id: 1,
+  nombre: "Ana"
+};
+console.log(cambios);
+console.log(resumen);
+
+//{ email: 'ana.nueva@correo.com' }//
+//{ id: 1, nombre: 'Ana' }//
+
+//EJERCICIO 14//
+type UsuarioPublico = Omit<Usuario, "email">;
+let usuarioPublico: UsuarioPublico = {
+  id: 1,
+  nombre: "Ana",
+  edad: 25
+};
+console.log(usuarioPublico);
+//{ id: 1, nombre: 'Ana', edad: 25 }//
+
+//EJERCICIO 15//
+interface Configuracion {
+  tema?: string;
+  idioma?: string;
+}
+let configuracionCompleta: Required<Configuracion> = {
+  tema: "oscuro",
+  idioma: "español"
+};
+
+console.log(configuracionCompleta);
+
+let usuarioFijo: Readonly<Usuario> = {
+  id: 2,
+  nombre: "Luis",
+  email: "luis@correo.com",
+  edad: 30
+};
+
+console.log(usuarioFijo);
+// usuarioFijo.nombre = "Pedro"; // Error: nombre es de solo lectura
+
+//{ tema: 'oscuro', idioma: 'español' }//
+//{ id: 2, nombre: 'Luis', email: 'luis@correo.com', edad: 30 }//
 
