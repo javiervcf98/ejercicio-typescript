@@ -256,3 +256,124 @@ console.log(usuarioFijo);
 //{ tema: 'oscuro', idioma: 'español' }//
 //{ id: 2, nombre: 'Luis', email: 'luis@correo.com', edad: 30 }//
 
+//EJERCICIO 16//
+class CuentaBancaria {  private saldo: number;
+    constructor(saldoInicial: number) {
+    this.saldo = saldoInicial;
+  }  
+  ingresar(cantidad: number): void {
+    if (cantidad > 0) {
+      this.saldo = this.saldo + cantidad;
+    } else {
+      console.log("La cantidad debe ser positiva");
+    }
+  }
+    consultarSaldo(): number {
+    return this.saldo;
+  }
+
+}
+let cuenta = new CuentaBancaria(100);
+cuenta.ingresar(50);
+cuenta.ingresar(-20);
+console.log(cuenta.consultarSaldo());
+
+//La cantidad debe ser positiva//
+//150//
+
+//EJERCICIO 17//
+interface Reproducible {
+  reproducir(): void;
+}
+class Cancion implements Reproducible {
+  reproducir(): void {
+    console.log("🎵 Reproduciendo canción...");
+  }
+}
+class Video implements Reproducible {
+  reproducir(): void {
+    console.log("🎬 Reproduciendo vídeo...");
+  }
+}
+let elementos: Reproducible[] = [new Cancion(), new Video()];
+
+for (let elemento of elementos) {
+  elemento.reproducir();
+}
+//🎵 Reproduciendo canción...//
+//🎬 Reproduciendo vídeo...//
+
+//EJERCICIO 18//
+enum EstadoPedido {
+  Pendiente,
+  Enviado,
+  Entregado
+}
+
+function mensajePedido(estado: EstadoPedido): string {  
+  if (estado === EstadoPedido.Pendiente) {
+    return "Tu pedido está pendiente de envío";
+  } else if (estado === EstadoPedido.Enviado) {
+    return "Tu pedido está en camino";
+  } else {
+    return "Tu pedido ha sido entregado";
+  }
+
+}
+console.log(mensajePedido(EstadoPedido.Pendiente));
+console.log(mensajePedido(EstadoPedido.Enviado));
+console.log(mensajePedido(EstadoPedido.Entregado));
+
+//Tu pedido está pendiente de envío
+//Tu pedido está en camino
+//Tu pedido ha sido entregado
+
+//EJERCICIO 19//
+function primero<T>(lista: T[]): T | undefined {
+  if (lista.length === 0) {
+    return undefined;
+  }
+
+  return lista[0];
+}
+
+let numeros: number[] = [10, 20, 30];
+console.log(primero(numeros));
+
+let textos: string[] = ["manzana", "pera", "plátano"];
+console.log(primero(textos));
+
+let vacia: number[] = [];
+console.log(primero(vacia));
+//10
+//manzana
+//undefined
+
+//EJERCICIO 20//
+//EJERCICIO 20//
+type Puntuaciones = Record<string, number>;
+
+let notas: Puntuaciones = {
+  Ana: 8,
+  Luis: 9.5,
+  Marta: 7
+};
+
+async function obtenerMensaje(puntuaciones: Puntuaciones): Promise<string> {
+  let mejorAlumno: string = "";
+  let mejorNota: number = -1;
+
+  for (let [alumno, nota] of Object.entries(puntuaciones)) {
+    if (nota > mejorNota) {
+      mejorNota = nota;
+      mejorAlumno = alumno;
+    }
+  }
+
+  return "La puntuación más alta es de " + mejorAlumno + ", con un " + mejorNota;
+}
+
+obtenerMensaje(notas).then((mensaje) => {
+  console.log(mensaje);
+});
+//La puntuación más alta es de Luis, con un 9.5
